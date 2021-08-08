@@ -10,8 +10,12 @@ homepage = "https://github.com/jacksmith15/poetry-workspace-plugin"
 repository = "https://github.com/jacksmith15/poetry-workspace-plugin"
 readme = "README.md"
 
+[tool.poetry.plugins."poetry.application.plugin"]
+workspace = "poetry_workspace_plugin.WorkspacePlugin"
+
 [tool.poetry.dependencies]
 python = "^3.9"
+poetry = "^1.2.0a1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.3"
