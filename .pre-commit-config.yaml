@@ -1,0 +1,13 @@
+# See https://pre-commit.com/ for usage and config
+default_language_version:
+  python: python3.9
+repos:
+- repo: https://github.com/ambv/black
+  rev: 20.8b1
+  hooks:
+  - id: black
+- repo: https://github.com/pycqa/isort
+  rev: 5.8.0
+  hooks:
+  - id: isort
+    name: isort
