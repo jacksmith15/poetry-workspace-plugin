@@ -19,6 +19,6 @@ class WorkspaceNewCommand(NewCommand):
             self.line(f"<fg=red>Workspace already registered with name <options=bold>{name}</></>")
             return 1
         super().handle()  # Create the new project
-        workspaces[name] = path
+        workspaces[name] = str(path)
         self.poetry.file.write(content)
         return 0
