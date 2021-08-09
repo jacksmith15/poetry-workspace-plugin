@@ -36,8 +36,10 @@ poetry remove workspace my-library --delete
 Metadata regarding workspaces is stored under `tool.poetry.workspaces`:
 
 ```toml
-[tool.poetry.workspaces]
-my-library = "libs/my-library"
+[tool.poetry.workspace]
+workspaces = {
+    my-library = "libs/my-library"
+}
 ```
 
 ## Installation

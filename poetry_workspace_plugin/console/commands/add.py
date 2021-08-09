@@ -2,6 +2,10 @@ from pathlib import Path
 
 from cleo.commands.command import Command
 from cleo.helpers import argument
+from poetry.core.factory import Factory
+from poetry.core.pyproject.toml import PyProjectTOML
+
+from poetry_workspace_plugin.helpers import get_workspaces_table
 
 
 class WorkspaceAddCommand(Command):
@@ -11,7 +15,6 @@ class WorkspaceAddCommand(Command):
     arguments = [argument("path", "The path to the Python project")]
 
     def handle(self) -> int:
-        from tomlkit import table
 
         # Check path is a valid project
         path = Path(self.argument("path"))
@@ -20,25 +23,21 @@ class WorkspaceAddCommand(Command):
 
         # Read current pyproject.toml
         content = self.poetry.file.read()
-        poetry_content = content["tool"]["poetry"]
-        if "workspaces" not in poetry_content:
-            poetry_content["workspaces"] = table()
-        section = poetry_content["workspaces"]
+
+        workspaces = get_workspaces_table(content)
 
         # Check that name is already used
-        if name in section:
+        if name in workspaces:
             self.line(f"<fg=red>Workspace already registered with name <options=bold>{name}</></>")
             return 1
 
         # Add the new workspace to current pyproject.toml
-        section[name] = path
+        workspaces[name] = path
         self.poetry.file.write(content)
         return 0
 
     @staticmethod
     def _get_target_project_name(path: Path) -> str:
-        from poetry.core.factory import Factory
-        from poetry.core.pyproject.toml import PyProjectTOML
 
         poetry_file = path / "pyproject.toml"
         if not poetry_file.exists():
