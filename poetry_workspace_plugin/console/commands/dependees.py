@@ -18,6 +18,7 @@ class WorkspaceDependeesCommand(Command):
     arguments = [argument("targets", "The workspaces to compute dependees of, by name", multiple=True)]
     options = [
         option("no-transitive", None, "Only show the immediate dependees", flag=True),
+        option("csv", None, "Return comma-separated list", flag=True),
     ]
 
     def handle(self) -> int:
@@ -29,9 +30,12 @@ class WorkspaceDependeesCommand(Command):
             return 1
         dependees = targets.union(*[self._find_dependees(name, transitive=transitive) for name in targets])
 
-        table = self.table(style="compact")
-        table.add_rows([[name] for name in dependees])
-        table.render()
+        if self.option("csv"):
+            self.line(",".join(dependees))
+            return 0
+
+        for dependee in dependees:
+            self.line(dependee)
         return 0
 
     def _find_dependees(self, name: str, transitive: bool = True) -> set[str]:

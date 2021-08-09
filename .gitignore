@@ -153,3 +153,6 @@ Thumbs.db
 
 # profiling data
 .prof
+
+# Test workspaces
+workspaces/

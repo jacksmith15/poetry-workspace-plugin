@@ -20,7 +20,7 @@ poetry workspace run command
 # Run a command in specified workspaces:
 poetry workspace run --targets=my-library,my-existing-library -- command
 
-# List dependees of a particular workspace (from among the list of workspaces).  The output of this can be passed to `poetry workspace run` to test affected workspaces.
+# List dependees of a particular workspace (from among the list of workspaces).
 poetry workspace dependees my-library
 
 # Unlink a workspace from the current project
@@ -28,6 +28,15 @@ poetry remove workspace my-library
 
 # Unlink and delete a workspace from the current project
 poetry remove workspace my-library --delete
+```
+
+### Common patterns
+
+#### Testing affected workspaces
+
+After making a change to a workspace, you can run tests for all _affected_ workspaces like so:
+```shell
+poetry workspace run --targets=$(poetry workspace dependees my-library) -- pytest tests/
 ```
 
 ### Planned commands
