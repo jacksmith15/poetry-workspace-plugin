@@ -2,8 +2,8 @@ from collections import defaultdict
 from functools import cached_property
 from pathlib import Path
 
-from cleo.commands.command import Command
 from cleo.helpers import argument, option
+from poetry.console.commands.command import Command
 from poetry.core.pyproject.toml import PyProjectTOML
 
 from poetry_workspace_plugin.helpers import get_workspaces_table
@@ -17,7 +17,7 @@ class WorkspaceDependeesCommand(Command):
 
     arguments = [argument("targets", "The workspaces to compute dependees of, by name", multiple=True)]
     options = [
-        option("no-transitive", None, "Only show the immediate dependees", flag=True, default=False),
+        option("no-transitive", None, "Only show the immediate dependees", flag=True),
     ]
 
     def handle(self) -> int:

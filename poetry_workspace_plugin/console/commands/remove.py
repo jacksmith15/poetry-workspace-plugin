@@ -1,8 +1,8 @@
 import shutil
 from pathlib import Path
 
-from cleo.commands.command import Command
 from cleo.helpers import argument, option
+from poetry.console.commands.command import Command
 
 from poetry_workspace_plugin.helpers import get_workspaces_table
 
@@ -10,7 +10,7 @@ from poetry_workspace_plugin.helpers import get_workspaces_table
 class WorkspaceRemoveCommand(Command):
     arguments = [argument("name", "The target workspace to remove.")]
     options = [
-        option("delete", "d", "Delete the workspace too.", flag=True, default=False),
+        option("delete", "d", "Delete the workspace too.", flag=True),
     ]
 
     def handle(self) -> int:

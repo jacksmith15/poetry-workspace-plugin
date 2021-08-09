@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from cleo.commands.command import Command
 from cleo.helpers import argument
+from poetry.console.commands.command import Command
 from poetry.core.factory import Factory
 from poetry.core.pyproject.toml import PyProjectTOML
 
@@ -41,7 +41,7 @@ class WorkspaceAddCommand(Command):
 
         poetry_file = path / "pyproject.toml"
         if not poetry_file.exists():
-            raise RuntimeError(f"Poetry could not find a pyproject.toml file in {path!r} or its parents")
+            raise RuntimeError(f"Poetry could not find a pyproject.toml file in {path!r}")
 
         pyproject = PyProjectTOML(path=poetry_file)
         local_config = pyproject.poetry_config

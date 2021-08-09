@@ -1,7 +1,7 @@
 import subprocess
 
-from cleo.commands.command import Command
 from cleo.helpers import argument, option
+from poetry.console.commands.command import Command
 
 from poetry_workspace_plugin.helpers import get_workspaces_table
 

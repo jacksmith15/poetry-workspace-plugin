@@ -14,14 +14,11 @@ poetry workspace add libs/my-existing-library
 # List the current workspaces
 poetry workspace list
 
-# Build all packages
-poetry workspace build --all
-
-# Publish all packages
-poetry workspace publish --all
-
 # Run a command in every workspace:
 poetry workspace run command
+
+# Run a command in specified workspaces:
+poetry workspace run --targets=my-library,my-existing-library -- command
 
 # List dependees of a particular workspace (from among the list of workspaces)
 poetry workspace dependees my-library
@@ -32,6 +29,21 @@ poetry remove workspace my-library
 # Unlink and delete a workspace from the current project
 poetry remove workspace my-library --delete
 ```
+
+### Planned commands
+
+```shell
+# Build or publish all workspaces:
+poetry workspace build
+poetry workspace publish
+
+# Build specified workspaces:
+poetry workspace --targets=my-library build
+
+# Publish specified workspaces:
+poetry workspace --targets=my-library publish
+```
+
 
 Metadata regarding workspaces is stored under `tool.poetry.workspaces`:
 
