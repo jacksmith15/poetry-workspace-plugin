@@ -2,6 +2,8 @@ from tomlkit import inline_table, table
 from tomlkit.items import InlineTable, Table
 from tomlkit.toml_document import TOMLDocument
 
+PLUGIN_SECTION = "poetry-workspace-plugin"
+
 
 def get_workspaces_table(pyproject: TOMLDocument) -> InlineTable:
     workspace_section = get_workspace_section(pyproject)
@@ -11,7 +13,8 @@ def get_workspaces_table(pyproject: TOMLDocument) -> InlineTable:
 
 
 def get_workspace_section(pyproject: TOMLDocument) -> Table:
-    poetry_section = pyproject["tool"]["poetry"]  # type: ignore
-    if "workspace" not in poetry_section:  # type: ignore
-        poetry_section["workspace"] = table()  # type: ignore
-    return poetry_section["workspace"]  # type: ignore
+    tool_section = pyproject["tool"]
+
+    if PLUGIN_SECTION not in tool_section:  # type: ignore
+        tool_section[PLUGIN_SECTION] = table()  # type: ignore
+    return tool_section[PLUGIN_SECTION]  # type: ignore
