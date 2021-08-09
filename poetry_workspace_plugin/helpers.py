@@ -4,8 +4,14 @@ from tomlkit.toml_document import TOMLDocument
 
 
 def get_workspaces_table(pyproject: TOMLDocument) -> InlineTable:
-    return get_workspace_section(pyproject).setdefault("workspaces", inline_table())  # type: ignore
+    workspace_section = get_workspace_section(pyproject)
+    if "workspaces" not in workspace_section:
+        workspace_section["workspaces"] = inline_table()
+    return workspace_section["workspaces"]  # type: ignore
 
 
 def get_workspace_section(pyproject: TOMLDocument) -> Table:
-    return pyproject["tool"]["poetry"].setdefault("workspace", table())  # type: ignore
+    poetry_section = pyproject["tool"]["poetry"]  # type: ignore
+    if "workspace" not in poetry_section:  # type: ignore
+        poetry_section["workspace"] = table()  # type: ignore
+    return poetry_section["workspace"]  # type: ignore
