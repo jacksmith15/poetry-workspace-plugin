@@ -21,7 +21,7 @@ poetry workspace build --all
 poetry workspace publish --all
 
 # Run a command in every workspace:
-poetry workspace exec -- command
+poetry workspace run command
 
 # List dependees of a particular workspace (from among the list of workspaces)
 poetry workspace dependees my-library
