@@ -8,6 +8,9 @@ from poetry_workspace_plugin.helpers import get_workspaces_table
 
 
 class WorkspaceRemoveCommand(Command):
+    name = "workspace remove"
+    description = "Stop tracking the specified workspace in this project."
+
     arguments = [argument("name", "The target workspace to remove.")]
     options = [
         option("delete", "d", "Delete the workspace too.", flag=True),
@@ -20,7 +23,8 @@ class WorkspaceRemoveCommand(Command):
         workspaces = get_workspaces_table(content)
 
         if name not in workspaces:
-            self.line(f"<fg=red>Unknown workspace <options=bold>{name}</></>")
+            self.line("")
+            self.line(f"<error>Unknown workspace <options=bold>{name}</>.</>")
             return 1
         path = Path(workspaces[name])  # type: ignore[arg-type]
         del workspaces[name]

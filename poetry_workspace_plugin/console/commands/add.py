@@ -19,7 +19,6 @@ class WorkspaceAddCommand(Command):
         # Check path is a valid project
         path = Path(self.argument("path"))
         name = self._get_target_project_name(path)
-        self._validate_path(path)
 
         # Read current pyproject.toml
         content = self.poetry.file.read()
@@ -32,7 +31,7 @@ class WorkspaceAddCommand(Command):
             return 1
 
         # Add the new workspace to current pyproject.toml
-        workspaces[name] = path
+        workspaces[name] = str(path)
         self.poetry.file.write(content)
         return 0
 
@@ -54,4 +53,4 @@ class WorkspaceAddCommand(Command):
                 message += "  - {}\n".format(error)
 
             raise RuntimeError("The Poetry configuration is invalid:\n" + message)
-        return pyproject.data["name"]
+        return pyproject.data["tool"]["poetry"]["name"]
