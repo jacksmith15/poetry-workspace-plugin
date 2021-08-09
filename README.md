@@ -36,7 +36,7 @@ poetry remove workspace my-library --delete
 
 After making a change to a workspace, you can run tests for all _affected_ workspaces like so:
 ```shell
-poetry workspace run --targets=$(poetry workspace dependees my-library) -- pytest tests/
+poetry workspace run --targets=$(poetry workspace dependees --csv my-library) -- pytest tests/
 ```
 
 ### Planned commands
