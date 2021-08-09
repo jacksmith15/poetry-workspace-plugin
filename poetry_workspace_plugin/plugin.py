@@ -1,16 +1,12 @@
-from cleo.commands.command import Command
 from poetry.plugins.application_plugin import ApplicationPlugin
 
-
-class WorkspaceCommand(Command):
-
-    name = "workspace"
-
-    def handle(self) -> int:
-        self.line("Hello, world!")
-        return 0
+from poetry_workspace_plugin.console.commands.add import WorkspaceAddCommand
+from poetry_workspace_plugin.console.commands.list import WorkspaceListCommand
+from poetry_workspace_plugin.console.commands.new import WorkspaceNewCommand
 
 
 class WorkspacePlugin(ApplicationPlugin):
     def activate(self, application):
-        application.command_loader.register_factory("workspace", WorkspaceCommand)
+        application.command_loader.register_factory("workspace new", WorkspaceNewCommand)
+        application.command_loader.register_factory("workspace add", WorkspaceAddCommand)
+        application.command_loader.register_factory("workspace list", WorkspaceListCommand)

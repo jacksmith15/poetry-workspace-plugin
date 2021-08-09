@@ -11,7 +11,7 @@ repository = "https://github.com/jacksmith15/poetry-workspace-plugin"
 readme = "README.md"
 
 [tool.poetry.plugins."poetry.application.plugin"]
-workspace = "poetry_workspace_plugin.WorkspacePlugin"
+poetry-workspace-plugin = "poetry_workspace_plugin:WorkspacePlugin"
 
 [tool.poetry.dependencies]
 python = "^3.9"
