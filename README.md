@@ -1,6 +1,6 @@
 # poetry-workspace-plugin
 
-Poetry workspace plugin for Python monorepos.
+[Poetry](https://python-poetry.org/) workspace plugin for Python monorepos.  Inspired by [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/).
 
 Adds a new subcommand group, `poetry workspace`, which is used to create, manage and inspect nested Python projects.
 
