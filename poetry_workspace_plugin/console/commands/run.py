@@ -27,7 +27,7 @@ class WorkspaceRunCommand(Command):
 
         targets = self.option("targets")
         if targets:
-            targets = targets.split(",")
+            targets = set(targets.split(","))
             if unexpected := (targets - set(workspaces)):
                 self.line(f"<fg=red>Unknown workspaces: <options=bold>{','.join(unexpected)}</></>")
                 return 1

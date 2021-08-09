@@ -35,7 +35,7 @@ class WorkspaceDependeesCommand(Command):
         return 0
 
     def _find_dependees(self, name: str, transitive: bool = True) -> set[str]:
-        dependees = self.dependee_map[name]
+        dependees = self._dependee_map[name]
         if not transitive:
             return dependees
         for dependee in dependees:
