@@ -30,3 +30,10 @@ jobs:
 
       - name: Run tests
         run: poetry run inv verify
+
+      - name: Store code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-${{ matrix.node-version }}
+          path: reports/cover/
+          retention-days: 1
