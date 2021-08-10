@@ -15,6 +15,13 @@ Types of changes are:
 ## [Unreleased]
 ### Added
 * Project started :)
+* Proof-of-concept CLI for managing multiple poetry projects as 'workspaces'.
+  - `poetry workspace new` creates a new workspace
+  - `poetry workspace add` tracks an existing project as a workspace
+  - `poetry workspace list` shows currently tracked workspaces
+  - `poetry workspace remove` untracks a workspace
+  - `poetry workspace run` runs a command in multiple workspaces
+  - `poetry workspace dependees` lists workspaces which depend on specified workspaces
 
 [Unreleased]: https://github.com/jacksmith15/poetry-workspace-plugin/compare/initial..HEAD
 
