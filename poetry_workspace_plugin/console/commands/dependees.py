@@ -26,15 +26,20 @@ class WorkspaceDependeesCommand(Command):
         transitive = not self.option("no-transitive")
         workspaces = get_workspaces_table(self.poetry.file.read())
         if unexpected := (targets - set(workspaces)):
-            self.line(f"<fg=red>Unknown workspaces: <options=bold>{','.join(unexpected)}</></>")
+            self.line_error(
+                f"<fg=red>Unknown workspace{'s' if len(unexpected) > 1 else ''}:"
+                f" <options=bold>{', '.join(unexpected)}</></>"
+            )
             return 1
         dependees = targets.union(*[self._find_dependees(name, transitive=transitive) for name in targets])
 
+        sorted_dependees = sorted(dependees)
+
         if self.option("csv"):
-            self.line(",".join(dependees))
+            self.line(",".join(sorted_dependees))
             return 0
 
-        for dependee in dependees:
+        for dependee in sorted_dependees:
             self.line(dependee)
         return 0
 
@@ -42,7 +47,7 @@ class WorkspaceDependeesCommand(Command):
         dependees = self._dependee_map[name]
         if not transitive:
             return dependees
-        for dependee in dependees:
+        for dependee in set(dependees):
             dependees |= self._find_dependees(dependee)
         return dependees
 
