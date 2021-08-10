@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "my-other-library"
+version = "0.1.0"
+description = ""
+authors = ["Jack Smith <jack.je.smith@gmail.com>"]
+readme = "README.md"
+packages = [{include = "my_other_library"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pytest = "^6.2.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
