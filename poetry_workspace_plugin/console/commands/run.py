@@ -29,7 +29,10 @@ class WorkspaceRunCommand(Command):
         if targets:
             targets = set(targets.split(","))
             if unexpected := (targets - set(workspaces)):
-                self.line(f"<fg=red>Unknown workspaces: <options=bold>{','.join(unexpected)}</></>")
+                self.line(
+                    f"<fg=red>Unknown workspace{'s' if len(unexpected) > 1 else ''}:"
+                    f" <options=bold>{', '.join(unexpected)}</></>"
+                )
                 return 1
         else:
             targets = set(workspaces)
@@ -38,13 +41,13 @@ class WorkspaceRunCommand(Command):
             self.line("<c1>No workspaces tracked by this project</>")
             return 0
 
-        for target in targets:
-            if exit_code := self._run_in_workspace(workspaces[target], args):  # type: ignore[arg-type]
-                return exit_code
-        return 0
+        exit_codes = {0}
+        for target in sorted(targets):
+            exit_codes.add(self._run_in_workspace(workspaces[target], args))  # type: ignore[arg-type]
+        return sorted(exit_codes, key=lambda code: abs(code), reverse=True)[0]
 
     def _run_in_workspace(self, workspace_path: str, args: list[str]):
-        self.line(f"<comment>Running 'poetry run {' '.join(args)}' in '{workspace_path}'</>")
+        self.line_error(f"<comment>Running 'poetry run {' '.join(args)}' in '{workspace_path}'</>")
         exe = subprocess.Popen(args, cwd=workspace_path)
         exe.communicate()
         return exe.returncode
