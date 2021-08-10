@@ -1,9 +1,8 @@
-import os
 import subprocess
 
 import pytest
 
-from tests.console.commands.helpers import PROJECT_ROOT, run
+from tests.console.commands.helpers import run
 
 
 class TestWorkspaceDependees:
