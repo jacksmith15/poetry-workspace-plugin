@@ -1,5 +1,10 @@
 # poetry-workspace-plugin
 
+> :warning: This depends on the plugin system added in Poetry [1.2](https://github.com/python-poetry/poetry/releases/tag/1.2.0a1), which does not yet have a stable release.
+> 
+> If you want to use this in your project now, check out [**Workspace**](https://jacksmith15.github.io/workspace-cli/basic-usage/), a standalone and extensible version of this plugin with built-in support for both [Poetry](https://python-poetry.org/) and [Pipenv](https://pipenv.pypa.io/en/latest/).
+
+
 [Poetry](https://python-poetry.org/) workspace plugin for Python monorepos.  Inspired by [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/).
 
 Adds a new subcommand group, `poetry workspace`, which is used to create, manage and inspect nested Python projects.
